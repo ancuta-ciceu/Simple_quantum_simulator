@@ -4,18 +4,6 @@ import math
 class QuantumGate:
     def __init__(self, matrix):
         self.matrix = matrix
-
-    def bin2dec(string_num):
-        return str(int(string_num,2))
-
-    def dec2vec(dec, n):
-        vec = np.zeros((2**n,1))
-        vec [dec, 0] = 1
-        return vec
-
-    def psi(string_num):
-        dec = bin2dec(string_num)
-        return dec2vec(int(dec), len(string_num))
     
     def X(n):
         X1 = np.array([[0,1],[1,0]])
