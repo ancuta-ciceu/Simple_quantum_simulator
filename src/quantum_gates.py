@@ -49,4 +49,16 @@ class QuantumGate:
                 H = np.kron(H, H1)
         return H
     
-print("i am in quantum_gate.py")
+    def CNOT(number_of_qubits, control_qubit, target_qubit):
+        CNOT1 = np.array([[1,0,0,0],[0,1,0,0],[0,0,0,1],[0,0,1,0]], dtype=complex) # defining the CNOT gate
+        
+        final_matrix = np.eye(1, dtype=complex)
+
+        for qubit in range(number_of_qubits): # for each qubit in the system
+            if qubit == control_qubit:  # if the qubit is the control qubit
+                final_matrix = np.kron(final_matrix, np.eye(2, dtype=complex)) #apply the identity gate because there is not operation on the control qubit
+            elif qubit == target_qubit: # if the qubit is the target qubit
+                final_matrix = np.kron(final_matrix, CNOT1) # apply the CNOT gate
+            else:
+                final_matrix = np.kron(final_matrix, np.eye(2, dtype=complex)) # apply the identity gate on the other qubits because there is no operation on them
+        return final_matrix
