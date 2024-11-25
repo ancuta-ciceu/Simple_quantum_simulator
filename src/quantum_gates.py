@@ -28,3 +28,30 @@ class QuantumGate:
     def CNOT():
         CNOT = np.array([[1,0,0,0],[0,1,0,0],[0,0,0,1],[0,0,1,0]], dtype=complex) # defining the CNOT gate
         return CNOT
+    def I():
+        I = np.array([[1,0],[0,1]], dtype=complex)
+        return I
+    
+    def S():
+        S = np.array([[1,0],[0,1j]], dtype=complex)
+        return S
+    
+    def T():
+        T = np.array([[1,0],[0,math.e**(1j*math.pi/4)]], dtype=complex)
+        return T
+    
+    def Ph(delta):
+        Ph = np.array([[math.e**(1j*delta),0],[0,math.e**(1j*delta)]], dtype=complex)
+        return Ph
+    
+    def Rx(theta):
+        Rx = np.array([[math.cos(theta/2),-1j*math.sin(theta/2)],[-1j*math.sin(theta/2),math.cos(theta/2)]], dtype=complex)
+        return Rx
+    
+    def Ry(theta):
+        Ry = np.array([[math.cos(theta/2),-math.sin(theta/2)],[math.sin(theta/2),math.cos(theta/2)]], dtype=complex)
+        return Ry
+    
+    def Rz(theta):
+        Rz = np.array([[math.e**(-1j*theta/2),0],[0,math.e**(1j*theta/2)]], dtype=complex)
+        return Rz

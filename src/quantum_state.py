@@ -25,13 +25,12 @@ class QuantumState:
 
     # Start with an identity matrix for the full system
         full_matrix = np.eye(1, dtype=complex)
-
-    # Iterate through each qubit and apply the appropriate gate or identity
         qubit_idx = 0
         for qubit in range(self.number_of_qubits):
             if qubit_idx < num_target_qubits and qubit == target_qubits[qubit_idx]:
                 # Apply the quantum gate to the target qubit(s)
-                full_matrix = np.kron(full_matrix, quantum_gate)
+                if qubit_idx == 0:
+                    full_matrix = np.kron(full_matrix, quantum_gate)
                 qubit_idx += 1
             else:
             # Apply identity gate to other qubits
@@ -44,7 +43,7 @@ class QuantumState:
 
     # Apply the full matrix to the state vector
         self.state_vector = np.dot(full_matrix, self.state_vector)
-
+       
 
     def measure(self):
         """
