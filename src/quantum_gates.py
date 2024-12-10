@@ -10,11 +10,11 @@ class QuantumGate:
         
     
     def X():
-        X = np.array([[0,1],[1,0]], dtype=complex) # defining the X gate as the Pauli matrix
+        X = np.array([[0,1],[1,0]], dtype=complex) 
         return X
     
     def Y():
-        Y = np.array([[0,-1j],[1j,0]]) # defining the Y gate as the Pauli matrix
+        Y = np.array([[0,-1j],[1j,0]]) 
         return Y
     def Z():
         Z = np.array([[1,0],[0,-1]])

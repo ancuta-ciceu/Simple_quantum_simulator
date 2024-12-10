@@ -22,7 +22,7 @@ def test_quantum_state():
 
     qs4 = QuantumState(4)
     print("Initial state vector:", qs4.state_vector)
-    qs4.apply_gates([(QuantumGate.CNOT(), [0, 1])])
+    qs4.apply_gates([(QuantumGate.Hadamard(), [0]), (QuantumGate.CNOT(), [1, 3])])
     print("State vector after applying CNOT gate:", qs4)
 test_quantum_state()
 
