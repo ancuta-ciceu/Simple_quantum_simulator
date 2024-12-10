@@ -10,35 +10,37 @@ class QuantumState:
         for quantum_gate, target_qubits in gates:
             self.apply_single_gate(quantum_gate, target_qubits)
 
+    def lift_gate(self, gate, target_qubits):
+        n = self.number_of_qubits
+        num_targets = len(target_qubits)
+
+        if gate.shape != (2 ** num_targets, 2 ** num_targets):
+            raise ValueError(f"Gate matrix dimensions must be 2^{num_targets} x 2^{num_targets}")
+
+        full_matrix = np.eye(2 ** n, dtype=complex)
+
+        for idx in range(2 ** n):
+            binary_idx = np.binary_repr(idx, width=n)
+            target_bits = ''.join(binary_idx[q] for q in target_qubits)
+            target_state_idx = int(target_bits, 2)
+
+            for jdx in range(2 ** n):
+                binary_jdx = np.binary_repr(jdx, width=n)
+                if all(binary_idx[q] == binary_jdx[q] for q in range(n) if q not in target_qubits):
+                    mapped_idx = int(''.join(binary_jdx[q] for q in target_qubits), 2)
+                    full_matrix[idx, jdx] = gate[target_state_idx, mapped_idx]
+
+        return full_matrix
+
+
+
     def apply_single_gate(self, quantum_gate, target_qubits):
 
         if isinstance(target_qubits, int):
             target_qubits = [target_qubits]
-
         target_qubits = sorted(target_qubits)
-        num_target_qubits = len(target_qubits)
-
-    # Check if the gate matrix is valid for the number of target qubits
-        if quantum_gate.shape != (2 ** num_target_qubits, 2 ** num_target_qubits):
-            raise ValueError(f"Gate matrix dimensions must be 2^{num_target_qubits} x 2^{num_target_qubits}")
-
-        full_matrix = np.eye(1, dtype=complex)
-        qubit_idx = 0
-        for qubit in range(self.number_of_qubits):
-            if qubit_idx < num_target_qubits and qubit == target_qubits[qubit_idx]:
-                if qubit_idx == 0:
-                    full_matrix = np.kron(full_matrix, quantum_gate)
-                qubit_idx += 1
-            else:
-                full_matrix = np.kron(full_matrix, np.eye(2, dtype=complex))
-
-    
-        expected_size = 2 ** self.number_of_qubits
-        if full_matrix.shape[0] != expected_size:
-            raise ValueError(f"Gate matrix size {full_matrix.shape[0]} does not match state vector size {expected_size}")
-
-
-        self.state_vector = np.dot(full_matrix, self.state_vector)
+        lifted_gate = self.lift_gate(quantum_gate, target_qubits)
+        self.state_vector = np.dot(lifted_gate, self.state_vector)
 
 
     def __str__(self):

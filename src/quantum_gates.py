@@ -26,7 +26,7 @@ class QuantumGate:
         return H
     
     def CNOT():
-        CNOT = np.array([[1,0,0,0],[0,1,0,0],[0,0,0,1],[0,0,1,0]], dtype=complex) # defining the CNOT gate
+        CNOT = np.array([[1,0,0,0],[0,1,0,0],[0,0,0,1],[0,0,1,0]], dtype=complex) 
         return CNOT
     def I():
         I = np.array([[1,0],[0,1]], dtype=complex)
