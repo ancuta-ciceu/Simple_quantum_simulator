@@ -35,7 +35,6 @@ class QuantumState:
 
 
     def apply_single_gate(self, quantum_gate, target_qubits):
-
         if isinstance(target_qubits, int):
             target_qubits = [target_qubits]
         target_qubits = sorted(target_qubits)

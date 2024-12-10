@@ -12,9 +12,7 @@ def test_quantum_state():
 
     qs3 = QuantumState(3)
     qs3.state_vector = np.array([1, 0, 0, 0, 0, 0, 0, 1], dtype=complex)
-
     print("Initial state vector:", qs3.state_vector)
-    
     qs3.apply_gates([(QuantumGate.CNOT(),[0, 2])])
     print("State vector after applying CNOT gate:", qs3)
 
@@ -24,5 +22,7 @@ def test_quantum_state():
     print("Initial state vector:", qs4.state_vector)
     qs4.apply_gates([(QuantumGate.Hadamard(), [0]), (QuantumGate.CNOT(), [1, 3])])
     print("State vector after applying CNOT gate:", qs4)
+
+    print("------------------------------------------------------------")
 test_quantum_state()
 
