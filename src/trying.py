@@ -88,4 +88,4 @@ class QuantumState:
             else:
                 return self.kronecker_exponential(np.identity(2), n)
             
-            
+            '''not done'''
