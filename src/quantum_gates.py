@@ -55,3 +55,6 @@ class QuantumGate:
     def Rz(theta):
         Rz = np.array([[math.e**(-1j*theta/2),0],[0,math.e**(1j*theta/2)]], dtype=complex)
         return Rz
+    def SWAP():
+        SWAP = np.array([[1,0,0,0],[0,0,1,0],[0,1,0,0],[0,0,0,1]], dtype=complex)
+        return SWAP

@@ -1,4 +1,5 @@
 import numpy as np
+import random
 
 class QuantumState:
     def __init__(self, number_of_qubits):
@@ -9,6 +10,8 @@ class QuantumState:
     def apply_gates(self, gates):
         for quantum_gate, target_qubits in gates:
             self.apply_single_gate(quantum_gate, target_qubits)
+            print(f"State vector after applying {quantum_gate} to qubits {target_qubits}: {self.state_vector}")
+            print("--------------------------------------------------------------------------------------------------")
 
     def lift_gate(self, gate, target_qubits):
         n = self.number_of_qubits
@@ -40,6 +43,12 @@ class QuantumState:
         target_qubits = sorted(target_qubits)
         lifted_gate = self.lift_gate(quantum_gate, target_qubits)
         self.state_vector = np.dot(lifted_gate, self.state_vector)
+
+    def measure(self):
+        probabilities = np.abs(self.state_vector) ** 2
+        outcomes = list(range(len(probabilities)))
+        measured_state = random.choices(outcomes, weights=probabilities, k=1)[0]
+        return measured_state
 
 
     def __str__(self):
